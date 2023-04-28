@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.awt.Point;
+import static utils.Constants.*;
 public class Snake {
     private static enum Direction {
         UP, DOWN, LEFT, RIGHT;
@@ -24,6 +25,12 @@ public class Snake {
             case DOWN -> head.y++;
             case LEFT -> head.x--;
             case RIGHT -> head.x++;
+        }
+        if (head.x == ROWS){
+            head.x = 0;
+        }
+        if (head.y == COLS) {
+            head.y = 0;
         }
         System.out.println(head.x);
         body.add(0, head);

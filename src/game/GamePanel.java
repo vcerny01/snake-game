@@ -1,20 +1,14 @@
 package game;
 
-import menu.MenuPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import static utils.Constants.*;
 
 public class GamePanel extends JPanel {
 //    JFrame snakeFrame = (JFrame) SwingUtilities.getWindowAncestor(GamePanel.this);
 
-    private final int ROWS = 30;
-    private final int COLS = 30;
-    private final Color TILE_COLOR = Color.BLUE;
-    private final Color HEAD_COLOR = Color.RED;
-    private final Color BODY_COLOR = Color.GREEN;
     private GameTile[][] gameGrid = new GameTile[ROWS][COLS];
     private Snake snake = new Snake(new Point(ROWS / 2, COLS / 2));
     public GamePanel() {
