@@ -1,12 +1,18 @@
 package menu;
 
+import game.GamePanel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MenuPanel extends JPanel {
     JButton startButton = new JButton("New Game");
     JButton exitButton = new JButton("Exit");
-    HeaderText headerText = new HeaderText("SNAKE GAME", this);
+    HeaderText headerText = new HeaderText("SNAKE GAME", 42, this);
     GameLogo gameLogo = new GameLogo("src/resources/snake-img.png");
 
     public MenuPanel() {
@@ -24,8 +30,17 @@ public class MenuPanel extends JPanel {
         *   }
         *  });
         *
-        * */
-        exitButton.addActionListener(e -> System.exit(0));
+        *  exitButton.addActionListener(e -> System.exit(0));
+         * */
+        startButton.addActionListener(e -> newGame());
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (JOptionPane.showConfirmDialog(null, "Do you really want to exit the game?") == JOptionPane.OK_OPTION){
+                    System.exit(0);
+                }
+            }
+        });
         gameLogo.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
         add(gameLogo);
         add(headerText);
@@ -36,5 +51,30 @@ public class MenuPanel extends JPanel {
                 ((JComponent) component).setAlignmentX(Component.CENTER_ALIGNMENT);
             }
         }
+    }
+    private void newGame() {
+        JFrame snakeFrame = (JFrame) SwingUtilities.getWindowAncestor(MenuPanel.this);
+        GamePanel gamePanel = new GamePanel();
+        snakeFrame.getContentPane().removeAll();
+        HeaderText pressEnterText = new HeaderText("Press ENTER to start the game", 30, gamePanel);
+        pressEnterText.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        snakeFrame.getContentPane().add(pressEnterText);
+        snakeFrame.getContentPane().add(gamePanel);
+        snakeFrame.repaint();
+        snakeFrame.setVisible(true);
+        snakeFrame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    System.out.println("Enter pressed");
+                    gamePanel.startGame();
+                    snakeFrame.removeKeyListener(this);
+                    snakeFrame.getContentPane().remove(0);
+                    snakeFrame.repaint();
+                }
+            }
+        });
+        snakeFrame.setFocusable(true);
+        snakeFrame.requestFocusInWindow();
     }
 }
