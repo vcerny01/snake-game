@@ -13,5 +13,9 @@
 - [ ] HW: Unit tests (understanding)
 - [x] HW: Snake direction controls
 (next lesson)
+- [ ] Food (Expes + longer body)  
+- [ ] Score bar
 - [ ] Solve direction proofing?
-- [ ] Documentation tutorial
+
+---
+- [ ] Leaderboard

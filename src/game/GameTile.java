@@ -10,7 +10,7 @@ public class GameTile extends JPanel {
         tileColor = color;
         setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
         setBackground(tileColor);
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 0));
     }
 
     public int getTileSize() {
