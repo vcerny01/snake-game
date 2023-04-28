@@ -6,11 +6,12 @@
 - [x] Menu layout
 - [x] Clean structure of menu elements
 28.4.
-- [ ] GamePanel review
-- [ ] Snake review
-- [ ] gameGrid<->snake repainting review
-- [ ] Timers review
+- [x] GamePanel review
+- [x] Snake review
+- [x] gameGrid<->snake repainting review
+- [x] Timers review
 - [ ] HW: Unit tests (understanding)
-- [ ] HW: Snake direction controls
+- [x] HW: Snake direction controls
 (next lesson)
+- [ ] Solve direction proofing?
 - [ ] Documentation tutorial

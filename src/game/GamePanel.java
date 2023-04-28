@@ -1,14 +1,18 @@
 package game;
 
+import menu.MenuPanel;
+import utils.Constants;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 import static utils.Constants.*;
 
 public class GamePanel extends JPanel {
 //    JFrame snakeFrame = (JFrame) SwingUtilities.getWindowAncestor(GamePanel.this);
-
     private GameTile[][] gameGrid = new GameTile[ROWS][COLS];
     private Snake snake = new Snake(new Point(ROWS / 2, COLS / 2));
     public GamePanel() {
@@ -56,6 +60,14 @@ public class GamePanel extends JPanel {
                 paintGame();
             }
         };
-        moveTimer.scheduleAtFixedRate(task, 0, 500);
+        moveTimer.scheduleAtFixedRate(task, 0, 400);
+    }
+    public void updateSnakeDirection(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_UP -> snake.setDirection(Constants.Direction.UP);
+            case KeyEvent.VK_DOWN -> snake.setDirection(Constants.Direction.DOWN);
+            case KeyEvent.VK_RIGHT -> snake.setDirection(Constants.Direction.RIGHT);
+            case KeyEvent.VK_LEFT -> snake.setDirection(Constants.Direction.LEFT);
+        }
     }
 }

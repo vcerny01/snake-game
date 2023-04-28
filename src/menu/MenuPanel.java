@@ -1,6 +1,7 @@
 package menu;
 
 import game.GamePanel;
+import utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,12 +67,17 @@ public class MenuPanel extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    System.out.println("Enter pressed");
                     gamePanel.startGame();
                     snakeFrame.removeKeyListener(this);
                     snakeFrame.getContentPane().remove(0);
                     snakeFrame.repaint();
                 }
+            }
+        });
+        snakeFrame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                gamePanel.updateSnakeDirection(e);
             }
         });
         snakeFrame.setFocusable(true);
