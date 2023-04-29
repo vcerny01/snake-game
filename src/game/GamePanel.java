@@ -64,10 +64,10 @@ public class GamePanel extends JPanel {
     }
     public void updateSnakeDirection(KeyEvent e) {
         switch(e.getKeyCode()) {
-            case KeyEvent.VK_UP -> snake.setDirection(Constants.Direction.UP);
-            case KeyEvent.VK_DOWN -> snake.setDirection(Constants.Direction.DOWN);
-            case KeyEvent.VK_RIGHT -> snake.setDirection(Constants.Direction.RIGHT);
-            case KeyEvent.VK_LEFT -> snake.setDirection(Constants.Direction.LEFT);
+            case KeyEvent.VK_UP -> snake.setNextDirection(Constants.Direction.UP);
+            case KeyEvent.VK_DOWN -> snake.setNextDirection(Constants.Direction.DOWN);
+            case KeyEvent.VK_RIGHT -> snake.setNextDirection(Constants.Direction.RIGHT);
+            case KeyEvent.VK_LEFT -> snake.setNextDirection(Constants.Direction.LEFT);
         }
     }
 }

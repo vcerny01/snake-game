@@ -5,16 +5,19 @@ import java.awt.Point;
 import static utils.Constants.*;
 public class Snake {
 
-    private Direction direction;
+    private Direction currentDirection;
+    private Direction nextDirection;
     private ArrayList<Point> body = new ArrayList<>();
 
     public Snake(Point headPosition) {
         body.add(headPosition);
         body.add(new Point(headPosition.x - 1, headPosition.y));
         body.add(new Point(headPosition.x - 2, headPosition.y));
-        direction = Direction.RIGHT;
+        this.currentDirection = Direction.RIGHT;
+        this.nextDirection = Direction.RIGHT;
     }
     public void move() {
+        this.currentDirection = this.nextDirection;
         Point head = getNewHead();
         switch (head.x) {
             case ROWS -> head.x = 0;
@@ -37,19 +40,24 @@ public class Snake {
         }
         return false;
     }
-    public Direction getDirection() {
-        return this.direction;
+    public Direction getCurrentDirection() {
+        return this.currentDirection;
     }
-    public void setDirection(Direction direction) {
-        System.out.println("Direction changed");
-        Direction currentDirection = getDirection();
-        if ((direction.ordinal() % 2) != (currentDirection.ordinal() % 2)) {
-            this.direction = direction;
+    public Direction getNextDirection() {
+        return this.nextDirection;
+    }
+    public boolean setNextDirection(Direction inputDirection) {
+        if ((inputDirection.ordinal() % 2) != (this.currentDirection.ordinal() % 2)) {
+            this.nextDirection = inputDirection;
+            return true;
+        }
+        else {
+            return false;
         }
     }
     private Point getNewHead() {
         Point head = new Point(getHead());
-        switch (direction) {
+        switch (currentDirection) {
             case UP -> head.y--;
             case DOWN -> head.y++;
             case LEFT -> head.x--;
