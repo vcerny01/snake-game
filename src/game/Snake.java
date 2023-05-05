@@ -32,6 +32,18 @@ public class Snake {
         body.remove(body.size() - 1);
         System.out.println("POINTS: " + getBody().toString());
     }
+    public void extendBody() {
+        Point lastPoint = body.get(body.size() - 1);
+        Point secondLastPoint = body.get(body.size() - 2);
+        Point newPoint = new Point(lastPoint);
+        if (lastPoint.x != secondLastPoint.x) {
+            newPoint.x = (lastPoint.x + (lastPoint.x - secondLastPoint.x));
+        } else {
+            newPoint.y = (lastPoint.y + (lastPoint.y - secondLastPoint.y));
+        }
+        body.add(newPoint);
+
+    }
     public boolean isCollisionWith(Point point) {
         for (Point bodyPart : body) {
             if (bodyPart.equals(point)) {
@@ -57,13 +69,16 @@ public class Snake {
     }
     private Point getNewHead() {
         Point head = new Point(getHead());
-        switch (currentDirection) {
-            case UP -> head.y--;
-            case DOWN -> head.y++;
-            case LEFT -> head.x--;
-            case RIGHT -> head.x++;
+        return modifyPoint(head, currentDirection);
+    }
+    private Point modifyPoint(Point point, Direction direction){
+        switch (direction) {
+            case UP -> point.y--;
+            case DOWN -> point.y++;
+            case LEFT -> point.x--;
+            case RIGHT -> point.x++;
         }
-        return head;
+        return point;
     }
     public Point getHead() {
         return body.get(0);

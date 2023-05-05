@@ -10,13 +10,17 @@
 - [x] Snake review
 - [x] gameGrid<->snake repainting review
 - [x] Timers review
-- [ ] HW: Unit tests (understanding)
 - [x] HW: Snake direction controls
-(next lesson)
-- [ ] Food (Expes + longer body)  
-- [ ] Score bar
-- [ ] Solve direction proofing?
+5.5
+- [x] Food
+- [x] Solve direction proofing?
+12.5
+- [ ] Player integration
+- [ ] Scoreboard
 
 ---
+- [ ] Unit tests
+- [ ] Comments
+- [ ] Documentation
 - [ ] Leaderboard
 - [ ] Graphical improvements
