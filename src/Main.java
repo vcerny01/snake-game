@@ -1,3 +1,5 @@
+import menu.SnakeFrame;
+
 import javax.swing.*;
 
 public class Main {

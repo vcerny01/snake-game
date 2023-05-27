@@ -27,30 +27,24 @@ public class Snake {
             case COLS -> head.y = 0;
             case -1 -> head.y = COLS - 1;
         }
-        System.out.println(head.x);
         body.add(0, head);
         body.remove(body.size() - 1);
         System.out.println("POINTS: " + getBody().toString());
     }
-    public void extendBody() {
-        Point lastPoint = body.get(body.size() - 1);
-        Point secondLastPoint = body.get(body.size() - 2);
-        Point newPoint = new Point(lastPoint);
-        if (lastPoint.x != secondLastPoint.x) {
-            newPoint.x = (lastPoint.x + (lastPoint.x - secondLastPoint.x));
-        } else {
-            newPoint.y = (lastPoint.y + (lastPoint.y - secondLastPoint.y));
-        }
-        body.add(newPoint);
-
-    }
-    public boolean isCollisionWith(Point point) {
-        for (Point bodyPart : body) {
-            if (bodyPart.equals(point)) {
-                return true;
+    public void extendBody(int newBlocks) {
+        for (int i = 0; i < newBlocks; i++) {
+            Point lastPoint = body.get(body.size() - 1);
+            Point secondLastPoint = body.get(body.size() - 2);
+            Point newPoint = new Point(lastPoint);
+            if (lastPoint.x != secondLastPoint.x) {
+                newPoint.x = (lastPoint.x + (lastPoint.x - secondLastPoint.x));
+            } else {
+                newPoint.y = (lastPoint.y + (lastPoint.y - secondLastPoint.y));
             }
+            // MAKE SURE NEW POINT ISNT OUT OF THE BOUNDS OF THE ARRAY
+            body.add(newPoint);
         }
-        return false;
+
     }
     public Direction getCurrentDirection() {
         return this.currentDirection;

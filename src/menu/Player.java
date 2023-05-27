@@ -2,7 +2,7 @@ package menu;
 
 public class Player {
     private String name;
-    private int gameExperience;
+    private int gameScore;
 
     public Player(String name){
         this.name = name;
@@ -10,12 +10,12 @@ public class Player {
     public String getName(){
         return name;
     }
-    public int getGameExperience() {
-        return this.gameExperience;
+    public int getGameScore() {
+        return this.gameScore;
     }
-    public void setGameExperience(int newExperience){
+    public void setGameScore(int newExperience){
         if (newExperience >= 0){
-               this.gameExperience = newExperience;
+               this.gameScore = newExperience;
         }
     }
 }

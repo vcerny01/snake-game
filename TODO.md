@@ -15,12 +15,14 @@
 - [x] Food
 - [x] Solve direction proofing?
 12.5
-- [ ] Player integration
-- [ ] Scoreboard
+- [x] Player integration
+- [x] Extra food objects
+
+27.5.
+- [ ] User player dialog
+- [ ] End Game + Scoreboard
+- [ ] Unit tests + comments tutorial
 
 ---
-- [ ] Unit tests
-- [ ] Comments
 - [ ] Documentation
-- [ ] Leaderboard
 - [ ] Graphical improvements

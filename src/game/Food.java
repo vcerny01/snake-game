@@ -14,11 +14,11 @@ public abstract class Food {
     public static int recurrenceMoves;
     private Point place;
 
-    public Food(int expGain, int newBlocks, Color color, ArrayList<Point> snakeBody) {
+    public Food(int expGain, int newBlocks, Color color, ArrayList<Point> snakeBody, ArrayList<Food> foodObjects) {
         this.expGain = expGain;
         this.newBlocks = newBlocks;
         this.color = color;
-        setRandomPlace(snakeBody);
+        setRandomPlace(snakeBody, foodObjects);
     }
     public int getExpGain() {
         return this.expGain;
@@ -32,7 +32,7 @@ public abstract class Food {
     public Point getPlace(){
         return place;
     }
-    public void setRandomPlace(ArrayList<Point> snakeBody) {
+    public void setRandomPlace(ArrayList<Point> snakeBody, ArrayList<Food> foodObjects) {
         // ADD: check for conflicts with other foods
         while(true) {
             Random randomCol = new Random();
@@ -41,6 +41,12 @@ public abstract class Food {
             if (!snakeBody.contains(tempPoint)) {
                 this.place = tempPoint;
                 break;
+            }
+            for (Food food : foodObjects) {
+                if (!tempPoint.equals(food.getPlace())) {
+                    this.place = tempPoint;
+                    break;
+                }
             }
         }
     }
