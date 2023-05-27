@@ -21,8 +21,10 @@ public class GamePanel extends JPanel {
     private Player player;
     private ScoreText scoreText;
     private HeaderText bottomText;
+    private Scoreboard scoreboard;
     private int allMoves;
-    public GamePanel(Player player, ScoreText scoreText, HeaderText bottomText, SnakeFrame parentFrame) {
+    public GamePanel(Player player, ScoreText scoreText, HeaderText bottomText, SnakeFrame parentFrame, Scoreboard scoreboard) {
+        this.scoreboard = scoreboard;
         this.player = player;
         this.scoreText = scoreText;
         this.bottomText = bottomText;
@@ -136,14 +138,15 @@ public class GamePanel extends JPanel {
     }
     private void endGame() {
         scoreText.endGame();
-        bottomText.setText("Your score is " + player.getGameScore() + ". Press ENTER to quit");
+        scoreboard.addScore(player);
+        bottomText.setText("Your score is " + player.getGameScore() + ". Press ENTER to quit.");
         snakeFrame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
                     snakeFrame.removeKeyListener(this);
                     snakeFrame.getContentPane().removeAll();
-                    snakeFrame.createMenu();
+                    snakeFrame.createMenu(scoreboard);
                     snakeFrame.getContentPane().revalidate();
                     snakeFrame.getContentPane().repaint();
                 }

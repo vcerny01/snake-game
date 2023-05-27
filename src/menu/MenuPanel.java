@@ -1,6 +1,7 @@
 package menu;
 
 import game.GamePanel;
+import game.Snake;
 import utils.Constants;
 
 import javax.swing.*;
@@ -11,28 +12,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class MenuPanel extends JPanel {
-    JButton startButton = new JButton("New Game");
-    JButton exitButton = new JButton("Exit");
-    HeaderText headerText = new HeaderText("SNAKE GAME", 42, this);
-    GameLogo gameLogo = new GameLogo("src/resources/snake-img.png");
-
-    public MenuPanel() {
-        headerText.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
-        /*
-         * 1.
-         *  exitButton.addActionListener(this);
-         * public void actionPerformed(ActionEvent event){
-         *
-         *
-         *
-         * button.addActionListener(new ActionListener() {
-         *   public void actionPerformed(ActionEvent e) {
-         *       System.out.println("Button clicked!");
-         *   }
-         *  });
-         *
-         *  exitButton.addActionListener(e -> System.exit(0));
-         * */
+    private JButton startButton = new JButton("New Game");
+    private SnakeFrame snakeFrame;
+    private JButton exitButton = new JButton("Exit");
+    private JButton leaderboardButton = new JButton("Show Leaderboard");
+    private HeaderText headerText = new HeaderText("SNAKE GAME", 42, this);
+    private GameLogo gameLogo = new GameLogo("src/resources/snake-img.png");
+    private Scoreboard scoreboard;
+    public MenuPanel(SnakeFrame snakeFrame, Scoreboard scoreboard) {
+        this.snakeFrame = snakeFrame;
+        this.scoreboard = scoreboard;
         startButton.addActionListener(e -> newGame());
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -42,10 +31,33 @@ public class MenuPanel extends JPanel {
                 }
             }
         });
+        leaderboardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton exitLeaderboard = new JButton("Quit");
+                exitLeaderboard.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        snakeFrame.getContentPane().removeAll();
+                        snakeFrame.createMenu(scoreboard);
+                        snakeFrame.getContentPane().revalidate();
+                        snakeFrame.getContentPane().repaint();
+                    }
+                });
+                snakeFrame.getContentPane().removeAll();
+                snakeFrame.getContentPane().add(new HeaderText("LEADERBOARD", 30, MenuPanel.this));
+                snakeFrame.getContentPane().add(new LeaderboardText(scoreboard.getLeaderboard(), MenuPanel.this));
+                snakeFrame.getContentPane().add(new HeaderText("Good Luck!", 20, MenuPanel.this));
+                snakeFrame.getContentPane().add(exitLeaderboard);
+                snakeFrame.revalidate();
+                snakeFrame.repaint();
+            }
+        });
         gameLogo.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         add(gameLogo);
         add(headerText);
         add(startButton);
+        add(leaderboardButton);
         add(exitButton);
         for (Component component : this.getComponents()) {
             if (component instanceof JLabel || component instanceof JButton || component instanceof JTextField) {
@@ -55,7 +67,6 @@ public class MenuPanel extends JPanel {
     }
 
     private void newGame() {
-        SnakeFrame snakeFrame = (SnakeFrame) SwingUtilities.getWindowAncestor(MenuPanel.this);
         String playerName = JOptionPane.showInputDialog("Enter player name (max 20 characters): ");
         if (playerName.length() > 20){
             playerName = playerName.substring(0,20);
@@ -63,17 +74,12 @@ public class MenuPanel extends JPanel {
         Player player = new Player(playerName);
         ScoreText scoreText = new ScoreText(player.getName(), MenuPanel.this);
         HeaderText headerText = new HeaderText("Press ENTER to start the game", 30, this);
-        headerText.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         HeaderText bottomText = new HeaderText("",20, this);
-        bottomText.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GamePanel gamePanel = new GamePanel(player, scoreText, bottomText, snakeFrame, scoreboard);
 
-        GamePanel gamePanel = new GamePanel(player, scoreText, bottomText, snakeFrame);
         snakeFrame.getContentPane().removeAll();
-
-
         snakeFrame.getContentPane().add(headerText);
         snakeFrame.getContentPane().add(gamePanel);
-
         snakeFrame.repaint();
         snakeFrame.setVisible(true);
         snakeFrame.addKeyListener(new KeyAdapter() {

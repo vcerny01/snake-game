@@ -19,8 +19,12 @@
 - [x] Extra food objects
 
 27.5.
-- [ ] User player dialog
-- [ ] End Game + Scoreboard
+- [x] User player dialog
+- [x] End Game
+- [x] Scoreboard
+
+28.5.
+- [] extendBody() always in the grid
 - [ ] Unit tests + comments tutorial
 
 ---
