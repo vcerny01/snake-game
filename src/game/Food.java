@@ -33,7 +33,6 @@ public abstract class Food {
         return place;
     }
     public void setRandomPlace(ArrayList<Point> snakeBody, ArrayList<Food> foodObjects) {
-        // ADD: check for conflicts with other foods
         while(true) {
             Random randomCol = new Random();
             Random randomRow = new Random();

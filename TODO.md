@@ -24,7 +24,7 @@
 - [x] Scoreboard
 
 28.5.
-- [] extendBody() always in the grid
+- [x] extendBody() always in the grid
 - [ ] Unit tests + comments tutorial
 
 ---

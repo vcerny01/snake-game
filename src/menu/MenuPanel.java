@@ -16,7 +16,7 @@ public class MenuPanel extends JPanel {
     private SnakeFrame snakeFrame;
     private JButton exitButton = new JButton("Exit");
     private JButton leaderboardButton = new JButton("Show Leaderboard");
-    private HeaderText headerText = new HeaderText("SNAKE GAME", 42, this);
+    private HeaderText headerText = new HeaderText("SNAKE GAME", 42);
     private GameLogo gameLogo = new GameLogo("src/resources/snake-img.png");
     private Scoreboard scoreboard;
     public MenuPanel(SnakeFrame snakeFrame, Scoreboard scoreboard) {
@@ -45,9 +45,9 @@ public class MenuPanel extends JPanel {
                     }
                 });
                 snakeFrame.getContentPane().removeAll();
-                snakeFrame.getContentPane().add(new HeaderText("LEADERBOARD", 30, MenuPanel.this));
-                snakeFrame.getContentPane().add(new LeaderboardText(scoreboard.getLeaderboard(), MenuPanel.this));
-                snakeFrame.getContentPane().add(new HeaderText("Good Luck!", 20, MenuPanel.this));
+                snakeFrame.getContentPane().add(new HeaderText("LEADERBOARD", 30));
+                snakeFrame.getContentPane().add(new LeaderboardText(scoreboard.getLeaderboard()));
+                snakeFrame.getContentPane().add(new HeaderText("Good Luck!", 20));
                 snakeFrame.getContentPane().add(exitLeaderboard);
                 snakeFrame.revalidate();
                 snakeFrame.repaint();
@@ -67,14 +67,17 @@ public class MenuPanel extends JPanel {
     }
 
     private void newGame() {
-        String playerName = JOptionPane.showInputDialog("Enter player name (max 20 characters): ");
-        if (playerName.length() > 20){
-            playerName = playerName.substring(0,20);
-        }
+        String playerName;
+        do {
+            playerName = JOptionPane.showInputDialog("Enter player name (max 20 characters): ");
+            if (playerName == null){
+                return;
+            }
+        } while (playerName.length() > 20 || playerName.equals(""));
         Player player = new Player(playerName);
-        ScoreText scoreText = new ScoreText(player.getName(), MenuPanel.this);
-        HeaderText headerText = new HeaderText("Press ENTER to start the game", 30, this);
-        HeaderText bottomText = new HeaderText("",20, this);
+        ScoreText scoreText = new ScoreText(player.getName());
+        HeaderText headerText = new HeaderText("Press ENTER to start the game", 30);
+        HeaderText bottomText = new HeaderText("",20);
         GamePanel gamePanel = new GamePanel(player, scoreText, bottomText, snakeFrame, scoreboard);
 
         snakeFrame.getContentPane().removeAll();

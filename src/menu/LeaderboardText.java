@@ -3,12 +3,14 @@ package menu;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import static utils.Constants.BACKGROUND_COLOR;
+
 
 public class LeaderboardText extends JTextArea {
 
-    public LeaderboardText(ArrayList<Player> leaderboard, JPanel motherElement) {
+    public LeaderboardText(ArrayList<Player> leaderboard) {
         this.setFont(new Font("Arial", Font.PLAIN, 15));
-        this.setBackground(motherElement.getBackground());
+        this.setBackground(BACKGROUND_COLOR);
         if (leaderboard != null) {
             StringBuilder leaderboardText = new StringBuilder();
             for (int i = 0; i < leaderboard.size(); i++) {
@@ -20,6 +22,5 @@ public class LeaderboardText extends JTextArea {
             setText("No scores, yet!");
         }
         setEditable(false);
-
     }
 }

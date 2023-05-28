@@ -3,11 +3,15 @@ package game;
 import java.util.ArrayList;
 import java.awt.Point;
 import static utils.Constants.*;
-public class Snake {
 
+/**
+ * A class that represents the snake object in the game. Essentially an object with an array list with points, directions of movement and relevant methods to manipulate these two.
+ */
+public class Snake {
     private Direction currentDirection;
     private Direction nextDirection;
     private ArrayList<Point> body = new ArrayList<>();
+
 
     public Snake(Point headPosition) {
         body.add(headPosition);
@@ -16,21 +20,23 @@ public class Snake {
         this.currentDirection = Direction.RIGHT;
         this.nextDirection = Direction.RIGHT;
     }
+
+    /**
+     * This method creates a new head for the snake at the next point in the direction of the snake and removes the last point in the body of the snake, thus in effect moving the snake in its direction.
+     */
     public void move() {
         this.currentDirection = this.nextDirection;
-        Point head = getNewHead();
-        switch (head.x) {
-            case ROWS -> head.x = 0;
-            case -1 -> head.x = ROWS - 1;
-        }
-        switch (head.y) {
-            case COLS -> head.y = 0;
-            case -1 -> head.y = COLS - 1;
-        }
+        Point head = floorPoint(getNewHead());
         body.add(0, head);
         body.remove(body.size() - 1);
-        System.out.println("POINTS: " + getBody().toString());
+        //System.out.println("POINTS: " + getBody().toString());
     }
+
+    /**
+     * This method extends the body of the snake by a given amount of blocks in the direction of the last two blocks (change in either x or y direction)
+     *
+     * @param newBlocks quantity of blocks by which the snake will be extended
+     */
     public void extendBody(int newBlocks) {
         for (int i = 0; i < newBlocks; i++) {
             Point lastPoint = body.get(body.size() - 1);
@@ -41,10 +47,26 @@ public class Snake {
             } else {
                 newPoint.y = (lastPoint.y + (lastPoint.y - secondLastPoint.y));
             }
-            // MAKE SURE NEW POINT ISNT OUT OF THE BOUNDS OF THE ARRAY
-            body.add(newPoint);
+            body.add(floorPoint(newPoint));
         }
+    }
 
+    /**
+     * This method translates a point one point outside the game grid into the grid. Makes sure the whole snake is always in the grid.
+     *
+     * @param point A point to be translated into the grid.
+     * @return A point in the grid.
+     */
+    private Point floorPoint(Point point) {
+        switch (point.x) {
+            case ROWS -> point.x = 0;
+            case -1 -> point.x = ROWS - 1;
+        }
+        switch (point.y) {
+            case COLS -> point.y = 0;
+            case -1 -> point.y = COLS - 1;
+        }
+        return point;
     }
     public Direction getCurrentDirection() {
         return this.currentDirection;

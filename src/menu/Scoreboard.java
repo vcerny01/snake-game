@@ -70,8 +70,8 @@ public class Scoreboard {
     public ArrayList<Player> getLeaderboard() {
         if (scores.size() > 0) {
             ArrayList<Player> allScores = new ArrayList<Player>(scores);
-            ArrayList<Player> leaderboardOfThree = new ArrayList<Player>();
-            for (int i = 0; i < 3; i++) {
+            ArrayList<Player> leaderboard = new ArrayList<Player>();
+            for (int i = 0; i < PLAYERS_IN_LEADERBOARD; i++) {
                 Player bestPlayer = allScores.get(0);
                 for (Player player : allScores) {
                     if (player.getMaxGameScore() > bestPlayer.getMaxGameScore()) {
@@ -79,12 +79,12 @@ public class Scoreboard {
                     }
                 }
                 allScores.remove(bestPlayer);
-                leaderboardOfThree.add(bestPlayer);
+                leaderboard.add(bestPlayer);
                 if (allScores.size() == 0) {
-                    return leaderboardOfThree;
+                    return leaderboard;
                 }
             }
-            return leaderboardOfThree;
+            return leaderboard;
         }
         return null;
     }
